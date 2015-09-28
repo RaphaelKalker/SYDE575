@@ -1,8 +1,8 @@
 %SYDE 575 Lab 1
-%Names (ID): 
+%Names (ID):
 %Jacinta Ferrant (20446891)
 %Raphael Kalker (20423222)
-%Date: Sept. 23, 2015
+%Date: Oct. 2, 2015
 close all;
 clear all;
 clc;
@@ -10,6 +10,16 @@ clc;
 lena = imread('lena.tiff');
 tire = imread('tire.tif');
 cameraman = imread('cameraman.tif');
+figure();
+subplot(1,3,1);
+imshow(lena);
+subplot(1,3,2);
+imshow(tire);
+subplot(1,3,3);
+imshow(cameraman);
+ha = axes('Position',[0 0 1 1],'Xlim',[0 1],'Ylim',[0
+                                                    1],'Box','off','Visible','off','Units','normalized', 'clipping' , 'off');
+text(0.5, 1,'Original Images','HorizontalAlignment','center','VerticalAlignment', 'top');
 
 % cameraman.tif is already a grayscale image
 % convert lena.tiff to a grayscale image
@@ -22,11 +32,11 @@ rLena = imresize(gLena, 0.25, 'bilinear');
 rCameraman = imresize(cameraman, 0.25, 'bilinear');
 
 figure();
-image1 = imshow(rLena);
+subplot(1,2,1);
+imshow(rLena);
 title('Bilinear Reduction: Lena');
-
-figure();
-image2 = imshow(rCameraman);
+subplot(1,2,2);
+imshow(rCameraman);
 title('Bilinear Reduction: Cameraman');
 
 %Zooming using nearest neighbour interpolation
@@ -42,28 +52,26 @@ bcLena = imresize(rLena, 4, 'bicubic');
 bcCameraman = imresize(rCameraman, 4, 'bicubic');
 
 figure();
-image3 = imshow(nnLena);
-title('Nearest Neighbour Interpolation: Lena');
+subplot(1,3,1);
+imshow(nnLena);
+title('Nearest Neighbour');
+subplot(1,3,2);
+imshow(biLena);
+title('Bilinear');
+subplot(1,3,3);
+imshow(bcLena);
+title('Bicubic');
 
 figure();
-image4 = imshow(nnCameraman);
-title('Nearest Neighbour Interpolation: Cameraman');
-
-figure();
-image5 = imshow(biLena);
-title('Bilinear Interpolation: Lena');
-
-figure();
-image6 = imshow(biCameraman);
-title('Bilinear Interpolation: Cameraman');
-
-figure();
-image7 = imshow(bcLena);
-title('Bicubic Interpolation: Lena');
-
-figure();
-image8 = imshow(bcCameraman);
-title('Bicubic Interpolation: Cameraman');
+subplot(1,3,1);
+imshow(nnCameraman);
+title('Nearest Neighbour');
+subplot(1,3,2);
+imshow(biCameraman);
+title('Bilinear');
+subplot(1,3,3);
+imshow(bcCameraman);
+title('Bicubic');
 
 %PSNR Computation
 %nearest neighbour interpolation
@@ -92,12 +100,16 @@ c3 = conv2(intensity, h3);
 figure();
 subplot(1,4,1);
 imshow(gLena);
+title('Original Image');
 subplot(1,4,2);
 imshow(c1);
+title('Conv h1');
 subplot(1,4,3);
 imshow(c2);
+title('Conv h2');
 subplot(1,4,4);
 imshow(c3);
+title('Conv h3');
 
 %5. Point Operations for Image Enhancement
 
