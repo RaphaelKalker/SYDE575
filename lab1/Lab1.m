@@ -31,7 +31,7 @@ gLena = rgb2gray(lena);
 rLena = imresize(gLena, 0.25, 'bilinear');
 rCameraman = imresize(cameraman, 0.25, 'bilinear');
 
-figure();
+figure(1);
 subplot(1,2,1);
 imshow(rLena);
 title('Bilinear Reduction: Lena');
@@ -51,7 +51,7 @@ biCameraman = imresize(rCameraman, 4, 'bilinear');
 bcLena = imresize(rLena, 4, 'bicubic');
 bcCameraman = imresize(rCameraman, 4, 'bicubic');
 
-figure();
+figure(2);
 subplot(1,3,1);
 imshow(nnLena);
 title('Nearest Neighbour');
@@ -62,7 +62,7 @@ subplot(1,3,3);
 imshow(bcLena);
 title('Bicubic');
 
-figure();
+figure(3);
 subplot(1,3,1);
 imshow(nnCameraman);
 title('Nearest Neighbour');
@@ -97,24 +97,58 @@ c1 = conv2(intensity, h1);
 c2 = conv2(intensity, h2);
 c3 = conv2(intensity, h3);
 
-figure();
-subplot(1,4,1);
+figure(4);
+subplot(2,2,1);
 imshow(gLena);
 title('Original Image');
-subplot(1,4,2);
+subplot(2,2,2);
 imshow(c1);
 title('Conv h1');
-subplot(1,4,3);
+subplot(2,2,3);
 imshow(c2);
 title('Conv h2');
-subplot(1,4,4);
+subplot(2,2,4);
 imshow(c3);
 title('Conv h3');
 
 %5. Point Operations for Image Enhancement
 
-figure();
+%The original tire with corresponding histogram
+figure(5);
 subplot(1,2,1);
 imshow(tire);
 subplot(1,2,2);
 imhist(tire);
+
+%image negative transform (complement) with correspoding histogram
+figure(6);
+subplot(1,2,1);
+negTire = imcomplement(tire);
+imshow(negTire);
+subplot(1,2,2);
+imhist(negTire);
+
+%power law transformations on tire image and corresponding histograms
+% for gamma = 0.5
+figure(7);
+subplot(1,2,1);
+normTire = double(tire)/255;
+powTire1 = normTire.^0.5;
+imshow(powTire1);
+subplot(1,2,2);
+imhist(powTire1);
+%for gamma = 1.3
+figure(8);
+subplot(1,2,1);
+powTire2 = normTire.^1.3;
+imshow(powTire2);
+subplot(1,2,2);
+imhist(powTire2);
+
+%histogram equalization on tire with corresponding histogram
+figure(9);
+subplot(1,2,1);
+eqTire = histeq(tire);
+imshow(eqTire);
+subplot(1,2,2);
+imhist(eqTire);
